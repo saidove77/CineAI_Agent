@@ -2,7 +2,7 @@
 """CineAI worker: يعمل في الخلفية (GitHub Actions) بلا تدخل.
 يقرأ project.json (مُصدَّر من الصفحة) أو prompt.txt، يبحث عن Spaces لتوليد الفيديو في Hugging Face،
 يولّد المقاطع المتبقية، يحفظها في videos/، ويدمجها في film.mp4 عند الاكتمال."""
-import json, os, pathlib, re, shutil, subprocess, sys
+import hashlib, json, os, pathlib, re, shutil, subprocess, sys
 import requests
 
 ROOT = pathlib.Path(__file__).resolve().parent
@@ -24,14 +24,20 @@ def save(p):
 
 
 def load_project():
-    if PROJECT.exists():
-        p = json.loads(PROJECT.read_text(encoding='utf-8'))
+    h = hashlib.sha256(PROMPT.read_bytes()).hexdigest()[:16] if PROMPT.exists() else None
+    p = json.loads(PROJECT.read_text(encoding='utf-8')) if PROJECT.exists() else None
+    if p and h and p.get('prompt_hash') and p['prompt_hash'] != h:
+        log('قصة جديدة في prompt.txt: أبدأ فيلماً جديداً.')
+        shutil.rmtree(OUT, ignore_errors=True)
+        p = None
+    if p:
+        pass
     elif PROMPT.exists():
         text = PROMPT.read_text(encoding='utf-8').strip()
         units = [u.strip() for u in re.split(r'\n\s*\n', text) if u.strip()]
         if len(units) == 1:
             units = [u for u in re.split(r'(?<=[.!?؟])\s+', text) if u.strip()]
-        p = {'style': 'Cinematic, coherent visual style', 'characters': '', 'scenes': [
+        p = {'prompt_hash': h, 'style': 'Cinematic, coherent visual style', 'characters': '', 'scenes': [
             {'id': i + 1, 'seconds': CLIP_SECONDS, 'description': u, 'status': 'pending'}
             for i, u in enumerate(units)]}
     else:
