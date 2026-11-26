@@ -52,7 +52,13 @@
 <div class="card"><h2>النتيجة والملفات</h2><p class="muted">بعد اكتمال التوليد يعرض الموصل ملفات النتيجة. روابط الملفات في Spaces مؤقتة، لذلك نزّل الفيديو فوراً.</p><div id="generationResult" class="notice">لا توجد نتيجة بعد.</div>
 <h2 style="margin-top:20px">مجلد الحفظ</h2><p><code>مجلد التنزيلات الذي يحدده المتصفح</code></p><p class="muted">الملفات تُسمّى تلقائياً scene-001 وما بعدها. GitHub Pages لا يسمح للموقع بالكتابة مباشرة إلى مجلد على جهازك.</p>
 <div class="notice">هذا موصل عام لـ Gradio وليس تكاملاً مخصصاً لكل نموذج فيديو. قد تحتاج إلى تعديل JSON inputs حسب Space. يتطلب اتصالاً بالإنترنت وتحميل مكتبة Gradio Client من CDN.</div></div></div>
-<div class="card" style="margin-top:15px"><h2>🤖 الوضع التلقائي</h2><p class="muted">بعد الضغط لا تتدخل: يستخدم الـ Space الذي كتبته أعلاه، أو يبحث بنفسه في Hugging Face عن Spaces لتوليد الفيديو ويجرّبها بالتتابع، فيكتشف مدخلاتها ويولّد كل المقاطع المتبقية وينزّلها تباعاً، ويتوقف عند انتهاء الحصة اليومية. الشروط: ضع الـ token أعلاه، وأبقِ هذه الصفحة مفتوحة، واسمح للمتصفح بالتنزيلات المتعددة. بعد تجدد الحصة اضغط الزر مرة أخرى فيكمل من حيث توقف.</p><div class="row"><button id="autoStart" class="primary">ابدأ التوليد التلقائي</button><button id="autoStop">إيقاف</button></div><pre id="autoLog" class="notice" style="white-space:pre-wrap;overflow-wrap:anywhere;max-height:320px;overflow:auto;margin-top:12px">بانتظار البدء.</pre></div></section>
+<div class="card" style="margin-top:15px"><h2>🤖 الوضع التلقائي</h2><p class="muted">بعد الضغط لا تتدخل: يستخدم الـ Space الذي كتبته أعلاه، أو يبحث بنفسه في Hugging Face عن Spaces لتوليد الفيديو ويجرّبها بالتتابع، فيكتشف مدخلاتها ويولّد كل المقاطع المتبقية وينزّلها تباعاً، ويتوقف عند انتهاء الحصة اليومية. الشروط: ضع الـ token أعلاه، وأبقِ هذه الصفحة مفتوحة، واسمح للمتصفح بالتنزيلات المتعددة. بعد تجدد الحصة اضغط الزر مرة أخرى فيكمل من حيث توقف.</p><div class="row"><button id="autoStart" class="primary">ابدأ التوليد التلقائي</button><button id="autoStop">إيقاف</button></div><pre id="autoLog" class="notice" style="white-space:pre-wrap;overflow-wrap:anywhere;max-height:320px;overflow:auto;margin-top:12px">بانتظار البدء.</pre></div>
+<div class="card" style="margin-top:15px"><h2>🚀 إرسال القصة إلى العامل الخلفي</h2><p class="muted">اكتب القصة هنا (يُفضَّل بالإنجليزية، ومشهد لكل فقرة). تُحفظ في المستودع كملف prompt.txt ويبدأ العامل وحده. يلزم GitHub token بصلاحية Contents: Read and write على هذا المستودع فقط. لا تضع الـ token داخل الكود أبداً.</p>
+<label>المستودع (owner/name)</label><input id="ghRepo" dir="ltr">
+<label>GitHub token</label><input id="ghToken" type="password" autocomplete="off" dir="ltr">
+<label><input type="checkbox" id="ghRemember" style="width:auto"> تذكّر الـ token في هذا المتصفح (لا تفعله على جهاز مشترك)</label>
+<label>القصة</label><textarea id="ghStory" rows="8" dir="auto"></textarea>
+<div class="row"><button id="ghSend" class="primary">أرسل القصة وابدأ</button></div><p id="ghMsg" class="muted"></p></div></section>
 
 <section id="progress" class="tab hidden"><div class="card"><h2>لوحة متابعة الإنتاج</h2><div class="progress"><span id="progressBar"></span></div><p id="progressText" class="muted">لم يتم إنشاء خطة بعد.</p><div id="progressList"></div><div class="row"><button id="resetStatus">إعادة حالات المقاطع إلى «بانتظار التوليد»</button><button id="exportCsv">تصدير قائمة المقاطع CSV</button><button id="exportConcat">تصدير قائمة الدمج (ffmpeg)</button><button id="syncRepo">جلب النتائج من المستودع</button></div><p id="concatHelp" class="muted"></p><code id="concatCmd" dir="ltr" style="display:block;overflow-wrap:anywhere;text-align:left"></code></div></section>
 <div class="foot">CineAI Agent 0.8 • تخزين محلي خاص • لا Firebase • لا رسوم أو عمليات شراء أو مفاتيح API مضمنة</div></div>
@@ -142,6 +148,24 @@ $('resetStatus').onclick=()=>{project.scenes.forEach(s=>s.status='pending');save
 $('exportCsv').onclick=()=>download('\uFEFFid,duration,status,description,prompt\n'+project.scenes.map(s=>[s.id,s.seconds,s.status,s.description,promptFor(s)].map(v=>'"'+String(v).replaceAll('"','""')+'"').join(',')).join('\n'),'cineai-scenes.csv','text/csv');
 
 $('syncRepo').onclick=async()=>{try{const r=await fetch('project.json?t='+Date.now(),{cache:'no-store'});if(!r.ok)throw new Error('HTTP '+r.status);const x=await r.json(),abs=u=>u?new URL(u,location.href).href:u;if(!project.scenes.length&&Array.isArray(x.scenes))Object.assign(project,x);let n=0;(x.scenes||[]).forEach(rs=>{const s=project.scenes.find(a=>a.id===rs.id);if(!s)return;s.status=rs.status;if(rs.outputUrl)s.outputUrl=abs(rs.outputUrl);if(rs.error)s.error=rs.error;n++;});project.scenes.forEach(s=>{if(s.outputUrl)s.outputUrl=abs(s.outputUrl);});save();render();$('concatHelp').textContent='تمت المزامنة: '+n+' مقطعاً. ';if(x.film){const a=document.createElement('a');a.href=abs(x.film);a.textContent='▶ الفيلم النهائي';a.target='_blank';a.rel='noopener';$('concatHelp').append(a);}}catch(e){$('concatHelp').textContent='تعذرت المزامنة (تعمل فقط من صفحة GitHub Pages بعد رفع project.json): '+(e.message||e);}};
+(()=>{const m=location.hostname.match(/^([^.]+)\.github\.io$/),part=location.pathname.split('/')[1];
+$('ghRepo').value=m&&part?m[1]+'/'+part:'';
+try{const t=localStorage.getItem('cineai_gh');if(t){$('ghToken').value=t;$('ghRemember').checked=true;}}catch{}
+$('ghSend').onclick=async()=>{
+ const repo=$('ghRepo').value.trim(),tok=$('ghToken').value.trim(),story=$('ghStory').value.trim(),msg=$('ghMsg');
+ if(!/^[\w.-]+\/[\w.-]+$/.test(repo)||!tok||!story){msg.textContent='أكمل المستودع والـ token والقصة.';return;}
+ try{if($('ghRemember').checked)localStorage.setItem('cineai_gh',tok);else localStorage.removeItem('cineai_gh');}catch{}
+ const api='https://api.github.com/repos/'+repo+'/contents/prompt.txt',h={'Authorization':'Bearer '+tok,'Accept':'application/vnd.github+json'};
+ msg.textContent='جارٍ الإرسال…';
+ try{
+  let sha;const g=await fetch(api,{headers:h,cache:'no-store'});
+  if(g.ok)sha=(await g.json()).sha;else if(g.status!==404)throw new Error('GitHub '+g.status);
+  let bin='';new TextEncoder().encode(story+'\n').forEach(b=>bin+=String.fromCharCode(b));
+  const r=await fetch(api,{method:'PUT',headers:{...h,'Content-Type':'application/json'},body:JSON.stringify({message:'CineAI: new story',content:btoa(bin),...(sha?{sha}:{})})});
+  if(!r.ok)throw new Error('GitHub '+r.status+' '+((await r.json().catch(()=>({}))).message||''));
+  msg.textContent='✔ حُفظت القصة وبدأ العامل (راقب تبويب Actions في GitHub). بعد دقائق اضغط «جلب النتائج من المستودع» في تبويب المتابعة.';
+ }catch(e){msg.textContent='تعذر الإرسال: '+(e.message||e);}
+};})();
 $('exportConcat').onclick=()=>{const done=project.scenes.filter(s=>s.status==='done'),use=done.length?done:project.scenes;if(!use.length){$('concatHelp').textContent='أنشئ خطة المشاهد أولاً.';return;}download(use.map(s=>`file 'scene-${String(s.id).padStart(3,'0')}.mp4'`).join('\n')+'\n','clips-list.txt','text/plain');$('concatHelp').textContent='ضع clips-list.txt بجانب المقاطع المنزَّلة (scene-001.mp4 …) ثم نفّذ الأمر التالي. إعادة الترميز تضمن نجاح الدمج حتى لو اختلفت المحركات؛ أو استورد المقاطع في CapCut/DaVinci Resolve.';$('concatCmd').textContent='ffmpeg -f concat -safe 0 -i clips-list.txt -c:v libx264 -pix_fmt yuv420p -c:a aac film.mp4';};
 
 // --- Free video engine researcher (local-first; discovery is opt-in) ---
