@@ -1,0 +1,32 @@
+name: CineAI worker
+on:
+  schedule:
+    - cron: '17 3 * * *'   # يومياً 03:17 UTC
+  workflow_dispatch:        # تشغيل يدوي من تبويب Actions
+  push:
+    paths: ['prompt.txt', 'project.json']
+permissions:
+  contents: write
+concurrency:
+  group: cineai
+  cancel-in-progress: false
+jobs:
+  run:
+    runs-on: ubuntu-latest
+    timeout-minutes: 120
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - run: pip install gradio_client requests
+      - run: python cineai_worker.py
+        env:
+          HF_TOKEN: ${{ secrets.HF_TOKEN }}
+          MAX_CLIPS_PER_RUN: '6'
+      - name: Commit results
+        run: |
+          git config user.name "cineai-bot"
+          git config user.email "cineai-bot@users.noreply.github.com"
+          git add project.json videos 2>/dev/null || true
+          git diff --cached --quiet || (git commit -m "CineAI: update clips" && git push)
