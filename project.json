@@ -7,37 +7,49 @@
       "id": 1,
       "seconds": 5,
       "description": "Realistic cinematic, high-end film production, natural lighting. Shot 1, duration 5 seconds. Scene action: ADAM: A 32-year-old man with short dark brown hair,\nlight beard, brown eyes, wearing an olive green jacket,\nbeige shirt, black trousers and brown boots.. Character continuity: ADAM: A 32-year-old man with short dark brown hair,\nlight beard, brown eyes, wearing an olive green jacket,\nbeige shirt, black trousers and brown boots.\nLAYLA: A 29-year-old woman with long chestnut hair\ntied back, hazel eyes, wearing a beige jacket,\nwhite shirt, dark brown trousers and hiking boots.\nKeep their facial features, body proportions,\nhairstyles and clothing exactly consistent\nthroughout every scene.\nBoth characters must retain the same voices\nand accents throughout the entire film.. Camera: cinematic controlled movement, coherent framing. Audio/dialogue: English dialogue, no subtitles. Maintain visual continuity with previous and next shots. No logos, no watermarks.",
-      "status": "pending"
+      "status": "done",
+      "outputUrl": "videos/scene-001.mp4",
+      "space": "mediasynthesismuseum/modelscope-text-to-video"
     },
     {
       "id": 2,
       "seconds": 5,
       "description": "Realistic cinematic, high-end film production, natural lighting. Shot 2, duration 5 seconds. Scene action: LAYLA: A 29-year-old woman with long chestnut hair\ntied back, hazel eyes, wearing a beige jacket,\nwhite shirt, dark brown trousers and hiking boots.. Character continuity: ADAM: A 32-year-old man with short dark brown hair,\nlight beard, brown eyes, wearing an olive green jacket,\nbeige shirt, black trousers and brown boots.\nLAYLA: A 29-year-old woman with long chestnut hair\ntied back, hazel eyes, wearing a beige jacket,\nwhite shirt, dark brown trousers and hiking boots.\nKeep their facial features, body proportions,\nhairstyles and clothing exactly consistent\nthroughout every scene.\nBoth characters must retain the same voices\nand accents throughout the entire film.. Camera: cinematic controlled movement, coherent framing. Audio/dialogue: English dialogue, no subtitles. Maintain visual continuity with previous and next shots. No logos, no watermark",
-      "status": "pending"
+      "status": "done",
+      "outputUrl": "videos/scene-002.mp4",
+      "space": "mediasynthesismuseum/modelscope-text-to-video"
     },
     {
       "id": 3,
       "seconds": 5,
       "description": "Realistic cinematic, high-end film production, natural lighting. Shot 3, duration 5 seconds. Scene action: Keep their facial features, body proportions,\nhairstyles and clothing exactly consistent\nthroughout every scene. Both characters must retain the same voices\nand accents throughout the entire film.\nPhotorealistic Hollywood adventure film.. Character continuity: ADAM: A 32-year-old man with short dark brown hair,\nlight beard, brown eyes, wearing an olive green jacket,\nbeige shirt, black trousers and brown boots.\nLAYLA: A 29-year-old woman with long chestnut hair\ntied back, hazel eyes, wearing a beige jacket,\nwhite shirt, dark brown trousers and hiking boots.\nKeep their facial features, body proportions,\nhairstyles and clothing exactly consistent\nthroughout every scene.\nBoth characters must retain the same voices\nand accents throughout the entire film.. Camera: cinematic controlled movement, coherent framing. Audio/dialogue: English dialogue, no subtitles. Maintain visual continuity with previous and next shots. No logos, no watermarks.",
-      "status": "pending"
+      "status": "done",
+      "outputUrl": "videos/scene-003.mp4",
+      "space": "mediasynthesismuseum/modelscope-text-to-video"
     },
     {
       "id": 4,
       "seconds": 5,
       "description": "Realistic cinematic, high-end film production, natural lighting. Shot 4, duration 5 seconds. Scene action: Wide cinematic establishing shot of the Louvre Museum\nin Paris, France. ADAM and LAYLA walk toward the\nmain entrance of the museum.. Character continuity: ADAM: A 32-year-old man with short dark brown hair,\nlight beard, brown eyes, wearing an olive green jacket,\nbeige shirt, black trousers and brown boots.\nLAYLA: A 29-year-old woman with long chestnut hair\ntied back, hazel eyes, wearing a beige jacket,\nwhite shirt, dark brown trousers and hiking boots.\nKeep their facial features, body proportions,\nhairstyles and clothing exactly consistent\nthroughout every scene.\nBoth characters must retain the same voices\nand accents throughout the entire film.. Camera: cinematic controlled movement, coherent framing. Audio/dialogue: English dialogue, no subtitles. Maintain visual continuity with previous and next shots. No logos, no watermarks.",
-      "status": "pending"
+      "status": "done",
+      "outputUrl": "videos/scene-004.mp4",
+      "space": "mediasynthesismuseum/modelscope-text-to-video"
     },
     {
       "id": 5,
       "seconds": 5,
       "description": "Realistic cinematic, high-end film production, natural lighting. Shot 5, duration 5 seconds. Scene action: The camera slowly follows them from behind.\nBeautiful daylight, realistic tourists, elegant\narchitecture, natural human movement. Epic cinematic atmosphere, 4K quality.. Character continuity: ADAM: A 32-year-old man with short dark brown hair,\nlight beard, brown eyes, wearing an olive green jacket,\nbeige shirt, black trousers and brown boots.\nLAYLA: A 29-year-old woman with long chestnut hair\ntied back, hazel eyes, wearing a beige jacket,\nwhite shirt, dark brown trousers and hiking boots.\nKeep their facial features, body proportions,\nhairstyles and clothing exactly consistent\nthroughout every scene.\nBoth characters must retain the same voices\nand accents throughout the entire film.. Camera: cinematic controlled movement, coherent framing. Audio/dialogue: English dialogue, no subtitles. Maintain visual continuity with previous and next shots. No logos, no watermarks.",
-      "status": "pending"
+      "status": "done",
+      "outputUrl": "videos/scene-005.mp4",
+      "space": "mediasynthesismuseum/modelscope-text-to-video"
     },
     {
       "id": 6,
       "seconds": 5,
       "description": "Realistic cinematic, high-end film production, natural lighting. Shot 6, duration 5 seconds. Scene action: No subtitles. No text on screen.\nDuration: exactly 8 seconds.\nADAM and LAYLA enter the magnificent Louvre Museum.. Character continuity: ADAM: A 32-year-old man with short dark brown hair,\nlight beard, brown eyes, wearing an olive green jacket,\nbeige shirt, black trousers and brown boots.\nLAYLA: A 29-year-old woman with long chestnut hair\ntied back, hazel eyes, wearing a beige jacket,\nwhite shirt, dark brown trousers and hiking boots.\nKeep their facial features, body proportions,\nhairstyles and clothing exactly consistent\nthroughout every scene.\nBoth characters must retain the same voices\nand accents throughout the entire film.. Camera: cinematic controlled movement, coherent framing. Audio/dialogue: English dialogue, no subtitles. Maintain visual continuity with previous and next shots. No logos, no watermarks.",
-      "status": "pending"
+      "status": "done",
+      "outputUrl": "videos/scene-006.mp4",
+      "space": "mediasynthesismuseum/modelscope-text-to-video"
     },
     {
       "id": 7,
@@ -45,5 +57,8 @@
       "description": "ا",
       "status": "pending"
     }
-  ]
+  ],
+  "worker": {
+    "space": "mediasynthesismuseum/modelscope-text-to-video"
+  }
 }
