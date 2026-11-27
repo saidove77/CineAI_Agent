@@ -55,7 +55,9 @@
       "id": 7,
       "seconds": 5,
       "description": "ا",
-      "status": "pending"
+      "status": "done",
+      "outputUrl": "videos/scene-007.mp4",
+      "space": "mediasynthesismuseum/modelscope-text-to-video"
     }
   ],
   "worker": {
